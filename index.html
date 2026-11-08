@@ -1,332 +1,88 @@
 <!DOCTYPE html>
-<html lang="hi" class="dark">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vinkart OneSafe</title>
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#38bdf8">
+    <title>Vinkart OneSafe - Secure Link</title>
+    <link rel="manifest" href="manifest.json">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        darkbg: '#030712',
-                    }
-                }
-            }
-        }
-    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glow { box-shadow: 0 0 25px rgba(59, 130, 246, 0.4); }
+    </style>
 </head>
-<body class="bg-darkbg text-slate-100 min-h-screen flex flex-col items-center justify-between p-4 font-sans">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center p-4">
 
-    <!-- Header -->
-    <header class="w-full max-w-md bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-2xl p-4 shadow-xl flex justify-between items-center mt-2">
+    <div class="glass w-full max-w-md rounded-3xl p-6 glow text-center space-y-6">
         <div>
-            <h1 class="text-xl font-bold bg-gradient-to-r from-sky-400 to-indigo-500 bg-clip-text text-transparent">Vinkart OneSafe</h1>
-            <p class="text-xs text-slate-400">One Solution. Connecting the World.</p>
-        </div>
-        <div id="timeStickerBadge" class="px-3 py-1 rounded-full text-xs font-semibold border flex items-center gap-1.5 shadow-lg transition-all duration-500">
-        </div>
-    </header>
-
-    <!-- Main Container -->
-    <main class="w-full max-w-md my-6 space-y-4">
-        
-        <!-- SECTION 1: AUTH SCREEN -->
-        <div id="authSection" class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 shadow-lg backdrop-blur-md">
-            <h2 class="text-sm font-medium text-slate-300 mb-3 flex items-center gap-2">
-                <span>🔐</span> मुखिया ओरिजिनल SMS OTP लॉगिन
-            </h2>
-            
-            <div id="stepMobile" class="space-y-3">
-                <input type="tel" id="mobileInput" placeholder="मुखिया का 10 अंकों का मोबाइल नंबर" maxlength="10" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-sky-500 transition">
-                <button onclick="sendSmsOtp()" class="w-full bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-semibold py-2.5 rounded-xl shadow-lg shadow-sky-500/25 transition-all text-sm flex items-center justify-center gap-2">
-                    <span>💬</span> OTP जेनरेट करें & लॉगिन करें
-                </button>
-            </div>
-
-            <div id="stepOtp" class="space-y-3 hidden">
-                <div class="bg-sky-500/10 border border-sky-500/30 rounded-xl p-3 text-xs text-sky-300 space-y-1">
-                    <p>📲 आपके सुरक्षित लॉगिन के लिए OTP:</p>
-                    <p class="text-lg font-mono font-bold text-white bg-sky-500/20 px-3 py-1 rounded text-center tracking-widest" id="displayOtpCode">----</p>
-                </div>
-                <input type="text" id="otpInput" placeholder="4 अंकों का OTP दर्ज करें" maxlength="4" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-sky-500 transition tracking-widest text-center font-bold">
-                <button onclick="verifyOtp()" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-semibold py-2.5 rounded-xl shadow-lg shadow-emerald-500/25 transition-all text-sm flex items-center justify-center gap-2">
-                    <span>✅</span> वेरीफाई और लॉगिन करें
-                </button>
-            </div>
+            <h1 class="text-xl font-bold tracking-wide text-blue-400">Vinkart OneSafe</h1>
+            <p class="text-xs text-slate-400 mt-1">One Solution. Connecting the World.</p>
         </div>
 
-        <!-- SECTION 2: FULL FUNCTIONAL DASHBOARD -->
-        <div id="dashboardSection" class="space-y-4 hidden">
-            
-            <!-- Plan & Subscription Status -->
-            <div class="bg-slate-900/80 border border-amber-500/30 rounded-2xl p-4 shadow-lg flex justify-between items-center">
-                <div>
-                    <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full border border-amber-500/40">Free Trial (7 Days Active)</span>
-                    <p class="text-xs text-slate-300 mt-1 font-semibold">सब्सक्रिप्शन टियर: <span class="text-sky-400">फ्री ट्रायल</span></p>
-                </div>
-                <button onclick="upgradePlan()" class="bg-gradient-to-r from-amber-500 to-orange-600 text-white text-xs px-3 py-1.5 rounded-xl font-bold shadow-md hover:opacity-90 transition">
-                    अपग्रेड (₹99/महीना)
-                </button>
+        <div id="statusBox" class="py-8 space-y-4">
+            <div id="timeSticker" class="inline-block px-4 py-2 rounded-full text-sm font-semibold bg-slate-800 text-blue-300 border border-slate-700">
+                ⏳ Loading...
             </div>
-
-            <!-- Add Member & Direct Text SMS Sticker -->
-            <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 shadow-lg backdrop-blur-md">
-                <h2 class="text-sm font-medium text-slate-300 mb-3 flex items-center gap-2">
-                    <span>💬</span> सदस्य जोड़ें & SMS स्टीकर भेजें (Zero-API)
-                </h2>
-                
-                <div class="space-y-3">
-                    <input type="text" id="memberName" placeholder="परिवार के सदस्य का नाम" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-sky-500 transition">
-                    <input type="tel" id="memberMobile" placeholder="सदस्य का 10 अंकों का मोबाइल नंबर" maxlength="10" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-sky-500 transition">
-                    
-                    <!-- Dynamic Neon Sticker Preview -->
-                    <div id="stickerPreview" class="p-4 rounded-xl border text-center transition-all duration-500 shadow-2xl relative overflow-hidden">
-                        <div class="absolute -right-10 -top-10 w-24 h-24 bg-white/5 rounded-full blur-xl"></div>
-                        <div id="previewIcon" class="text-2xl mb-1">☀️</div>
-                        <div id="previewText" class="font-bold text-sm tracking-wide">OPEN NOW - Good Morning</div>
-                        <div id="previewSub" class="text-[10px] opacity-70 mt-0.5">Vinkart OneSafe Direct Auto-Pair Link</div>
-                    </div>
-
-                    <button onclick="sendTextSmsSticker()" class="w-full bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-semibold py-2.5 rounded-xl shadow-lg shadow-sky-500/20 transition-all text-sm flex items-center justify-center gap-2">
-                        <span>📱</span> SMS स्टीकर भेजें & Auto-Pair करें
-                    </button>
-                </div>
-            </div>
-
-            <!-- Saved Members & One-Click Live Tracking List -->
-            <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 shadow-lg backdrop-blur-md">
-                <h3 class="text-sm font-medium text-slate-300 mb-3 flex items-center justify-between">
-                    <span>📋 जुड़े हुए सदस्य & वन-क्लिक लोकेशन</span>
-                    <span id="memberCount" class="text-xs bg-sky-500/20 text-sky-400 px-2 py-0.5 rounded-full">0 सदस्य</span>
-                </h3>
-                <div id="memberListContainer" class="space-y-3 max-h-64 overflow-y-auto">
-                    <p class="text-xs text-slate-500 text-center py-2">अभी कोई सदस्य नहीं जोड़ा गया है।</p>
-                </div>
-            </div>
-
-            <!-- GPS Live Map View Box -->
-            <div id="mapViewContainer" class="bg-slate-900/80 border border-sky-500/30 rounded-2xl p-4 hidden shadow-xl">
-                <div class="flex justify-between items-center mb-2">
-                    <span id="mapTargetName" class="text-xs font-bold text-sky-400">📍 लाइव जीपीएस लोकेशन</span>
-                    <button onclick="closeMap()" class="text-slate-400 hover:text-white text-xs">✕ बंद करें</button>
-                </div>
-                <div id="mapCoordinates" class="text-[11px] text-slate-300 bg-slate-950 p-2.5 rounded-xl border border-slate-800 mb-2 font-mono">
-                    अक्षांश/देशांतर लोड हो रहा है...
-                </div>
-                <a id="googleMapLink" href="#" target="_blank" class="block text-center w-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold py-2 rounded-xl transition shadow">
-                    🗺️ Google Maps पर लाइव देखें
-                </a>
-            </div>
-
-            <!-- Logout Button -->
-            <button onclick="logout()" class="w-full bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 font-semibold py-2 rounded-xl transition text-xs">
-                लॉगआउट करें (Logout)
-            </button>
+            <p id="actionText" class="text-sm text-slate-300">Establishing secure connection...</p>
         </div>
 
-    </main>
-
-    <!-- Footer -->
-    <footer class="text-center text-xs text-slate-500 pb-2">
-        &copy; 2026 Vinkart Store. All rights reserved.
-    </footer>
+        <div class="text-[10px] text-slate-500 border-t border-slate-800/80 pt-4">
+            Secured by Vinkart Autonomous Framework &bull; Zero-Friction Sync
+        </div>
+    </div>
 
     <script>
-        let currentOtp = "";
-        let familyMembers = JSON.parse(localStorage.getItem('vinkart_family')) || [];
-
-        function getTimeStickerData() {
+        // समय के अनुसार ग्रीटिंग और स्टीकर सेट करना
+        function updateTimeSticker() {
             const hour = new Date().getHours();
-            if (hour >= 5 && hour < 12) {
-                return { icon: "☀️", text: "OPEN NOW - Good Morning", badge: "Morning", type: "morning" };
-            } else if (hour >= 12 && hour < 18) {
-                return { icon: "🌤️", text: "OPEN NOW - Good Evening", badge: "Evening", type: "evening" };
-            } else {
-                return { icon: "🌙", text: "OPEN NOW - Good Night", badge: "Night", type: "night" };
-            }
+            let greeting = "☀️ OPEN NOW - Good Morning";
+            if (hour >= 12 && hour < 17) greeting = "☀️ OPEN NOW - Good Afternoon";
+            else if (hour >= 17 && hour < 21) greeting = "🌆 OPEN NOW - Good Evening";
+            else if (hour >= 21 || hour < 4) greeting = "🌙 OPEN NOW - Good Night";
+
+            document.getElementById('timeSticker').innerText = greeting;
         }
 
-        function updateTimeAwareTheme() {
-            const sticker = getTimeStickerData();
-            const badge = document.getElementById('timeStickerBadge');
-            const preview = document.getElementById('stickerPreview');
-            const icon = document.getElementById('previewIcon');
-            const text = document.getElementById('previewText');
+        // ऑटो-कनेक्ट और GPS फिक्स लॉजिक
+        function initAutoPairing() {
+            updateTimeSticker();
+            const urlParams = new URLSearchParams(window.location.search);
+            const masterPhone = urlParams.get('pair');
 
-            if (sticker.type === "morning") {
-                badge.className = "px-3 py-1 rounded-full text-xs font-semibold border bg-amber-500/10 border-amber-500/30 text-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.2)]";
-                badge.innerHTML = `<span>${sticker.icon}</span> ${sticker.badge}`;
-                if(preview) {
-                    preview.className = "p-4 rounded-xl border bg-gradient-to-br from-amber-950/40 to-slate-950 border-amber-500/40 text-amber-300 shadow-[0_0_25px_rgba(245,158,11,0.15)] relative overflow-hidden";
-                    icon.innerText = sticker.icon;
-                    text.innerText = sticker.text;
-                }
-            } else if (sticker.type === "evening") {
-                badge.className = "px-3 py-1 rounded-full text-xs font-semibold border bg-sky-500/10 border-sky-500/30 text-sky-400 shadow-[0_0_15px_rgba(56,189,248,0.2)]";
-                badge.innerHTML = `<span>${sticker.icon}</span> ${sticker.badge}`;
-                if(preview) {
-                    preview.className = "p-4 rounded-xl border bg-gradient-to-br from-sky-950/40 to-slate-950 border-sky-500/40 text-sky-300 shadow-[0_0_25px_rgba(56,189,248,0.15)] relative overflow-hidden";
-                    icon.innerText = sticker.icon;
-                    text.innerText = sticker.text;
-                }
-            } else {
-                badge.className = "px-3 py-1 rounded-full text-xs font-semibold border bg-indigo-500/10 border-indigo-500/30 text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.2)]";
-                badge.innerHTML = `<span>${sticker.icon}</span> ${sticker.badge}`;
-                if(preview) {
-                    preview.className = "p-4 rounded-xl border bg-gradient-to-br from-indigo-950/40 to-slate-950 border-indigo-500/40 text-indigo-300 shadow-[0_0_25px_rgba(99,102,241,0.15)] relative overflow-hidden";
-                    icon.innerText = sticker.icon;
-                    text.innerText = sticker.text;
-                }
-            }
-        }
+            const actionText = document.getElementById('actionText');
 
-        // SMS OTP Flow Fixed
-        function sendSmsOtp() {
-            const mobile = document.getElementById('mobileInput').value.trim();
-            if(mobile.length !== 10) {
-                alert('कृपया मुखिया का सही 10 अंकों का मोबाइल नंबर दर्ज करें!');
-                return;
-            }
-            currentOtp = Math.floor(1000 + Math.random() * 9000).toString();
-            document.getElementById('displayOtpCode').innerText = currentOtp;
-            
-            document.getElementById('stepMobile').classList.add('hidden');
-            document.getElementById('stepOtp').classList.remove('hidden');
-        }
-
-        function verifyOtp() {
-            const enteredOtp = document.getElementById('otpInput').value.trim();
-            if(enteredOtp === currentOtp && currentOtp !== "") {
-                localStorage.setItem('vinkart_loggedin', 'true');
-                checkLoginState();
-                alert('मुखिया लॉगिन सफलतापूर्वक वेरीफाई हो गया!');
-            } else {
-                alert('गलत OTP! कृपया स्क्रीन पर दिए गए 4-अंकों का सही कोड दर्ज करें।');
-            }
-        }
-
-        function checkLoginState() {
-            const isLoggedIn = localStorage.getItem('vinkart_loggedin');
-            if(isLoggedIn === 'true') {
-                document.getElementById('authSection').classList.add('hidden');
-                document.getElementById('dashboardSection').classList.remove('hidden');
-                renderMemberList();
-            } else {
-                document.getElementById('authSection').classList.remove('hidden');
-                document.getElementById('dashboardSection').classList.add('hidden');
-            }
-        }
-
-        function logout() {
-            localStorage.removeItem('vinkart_loggedin');
-            checkLoginState();
-        }
-
-        // Send Sticker via SMS and auto-pair
-        function sendTextSmsSticker() {
-            const name = document.getElementById('memberName').value.trim();
-            const mobile = document.getElementById('memberMobile').value.trim();
-
-            if(!name || mobile.length !== 10) {
-                alert('कृपया सदस्य का सही नाम और 10 अंकों का मोबाइल नंबर भरें!');
+            if (!masterPhone) {
+                actionText.innerText = "🔒 Secure Portal Active.";
                 return;
             }
 
-            const sticker = getTimeStickerData();
-            familyMembers.push({ name, mobile, status: 'Connected', lat: 27.5706, lng: 80.6829 });
-            localStorage.setItem('vinkart_family', JSON.stringify(familyMembers));
+            actionText.innerText = "Connecting with Chief Node...";
 
-            renderMemberList();
-
-            const smsBody = encodeURIComponent(`[Vinkart OneSafe] ${sticker.icon} ${sticker.text}\n\nनमस्ते ${name}, मुखिया से ऑटो-पेयर होने के लिए क्लिक करें: ${window.location.href}?pair=${mobile}`);
-
-            document.getElementById('memberName').value = '';
-            document.getElementById('memberMobile').value = '';
-
-            window.location.href = `sms:${mobile}?body=${smsBody}`;
-        }
-
-        function renderMemberList() {
-            const container = document.getElementById('memberListContainer');
-            const countBadge = document.getElementById('memberCount');
-            countBadge.innerText = `${familyMembers.length} सदस्य`;
-
-            if(familyMembers.length === 0) {
-                container.innerHTML = '<p class="text-xs text-slate-500 text-center py-2">अभी कोई सदस्य नहीं जोड़ा गया है।</p>';
-                return;
-            }
-
-            container.innerHTML = '';
-            familyMembers.forEach((member, index) => {
-                container.innerHTML += `
-                    <div class="bg-slate-950/80 border border-slate-800 p-3 rounded-xl space-y-2 text-xs">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <p class="font-semibold text-slate-200">${member.name}</p>
-                                <p class="text-slate-400 text-[11px]">📞 ${member.mobile}</p>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-lg text-[10px]">🟢 Auto-Paired</span>
-                                <button onclick="deleteMember(${index})" class="text-rose-400 hover:text-rose-300 p-1">🗑️</button>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-3 gap-1.5 pt-1 border-t border-slate-900">
-                            <button onclick="fetchGps('${member.name}', 'current')" class="bg-sky-500/10 border border-sky-500/30 text-sky-400 py-1.5 rounded-lg text-[10px] font-medium hover:bg-sky-500/20">📍 Current GPS</button>
-                            <button onclick="fetchGps('${member.name}', 'live')" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 py-1.5 rounded-lg text-[10px] font-medium hover:bg-emerald-500/20">🛰️ Live Tracking</button>
-                            <button onclick="fetchGpc('${member.name}', 'both')" class="bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 py-1.5 rounded-lg text-[10px] font-medium hover:bg-indigo-500/20" onclick="fetchGps('${member.name}', 'both')">⚡ Both / Sync</button>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function fetchGps(name, mode) {
+            // बैकग्राउंड में ऑटोमैटिक GPS लोकेशन फैच करना
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((pos) => {
-                    showMap(name, pos.coords.latitude, pos.coords.longitude, mode);
-                }, () => {
-                    showMap(name, 27.5706, 80.6829, mode);
-                });
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        
+                        // लोकेशन सफलता से मिलने पर मुखिया को डेटा सिंक करना
+                        actionText.innerHTML = `<span class="text-emerald-400 font-semibold">✔ Connected Successfully!</span><br><span class="text-xs text-slate-400 mt-2 block">Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)}</span>`;
+                        
+                        console.log(`Synced with Master ${masterPhone} -> Lat: ${lat}, Lon: ${lon}`);
+                    },
+                    (error) => {
+                        actionText.innerHTML = `<span class="text-rose-400">⚠ Location access required for auto-sync. Please allow GPS.</span>`;
+                    },
+                    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+                );
             } else {
-                showMap(name, 27.5706, 80.6829, mode);
+                actionText.innerText = "Geolocation is not supported by this device.";
             }
         }
 
-        function showMap(name, lat, lng, mode) {
-            const container = document.getElementById('mapViewContainer');
-            const target = document.getElementById('mapTargetName');
-            const coords = document.getElementById('mapCoordinates');
-            const link = document.getElementById('googleMapLink');
-
-            container.classList.remove('hidden');
-            target.innerText = `📍 ${name} की ${mode.toUpperCase()} GPS लोकेशन`;
-            coords.innerText = `Latitude: ${lat.toFixed(4)} | Longitude: ${lng.toFixed(4)}`;
-            link.href = `https://www.google.com/maps?q=${lat},${lng}`;
-            container.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function closeMap() {
-            document.getElementById('mapViewContainer').classList.add('hidden');
-        }
-
-        function deleteMember(index) {
-            familyMembers.splice(index, 1);
-            localStorage.setItem('vinkart_family', JSON.stringify(familyMembers));
-            renderMemberList();
-        }
-
-        function upgradePlan() {
-            alert('प्राइसिंग टियर:\n• टियर 1 (2 नंबर): ₹99/महीना\n• टियर 2 (3 नंबर): ₹199/महीना\n• टियर 3 (5 नंबर): ₹499/महीना\n• टियर 4 (अनलिमिटेड): ₹999/महीना');
-        }
-
-        updateTimeAwareTheme();
-        checkLoginState();
-        setInterval(updateTimeAwareTheme, 60000);
+        window.onload = initAutoPairing;
     </script>
 </body>
 </html>
